@@ -6,7 +6,8 @@ const dotenv = require("dotenv");
 const path = require("path");
 dotenv.config({ path: path.join(__dirname, "environment", ".env") });
 
-const authRouter = require("./routes/api/authorization");
+const authRouter = require("./routes/api/authRouter");
+const usersRouter = require("./routes/api/usersRouter");
 
 const app = express();
 
@@ -17,7 +18,9 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-app.use("/users", authRouter);
+app.use("/auth", authRouter);
+app.use("/users", usersRouter);
+
 // app.use("/api-docs");
 // app.use("/api/tasks", tasksRouter);
 // app.use("/api/reviews", reviewsRouter);
