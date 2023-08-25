@@ -1,35 +1,30 @@
 const express = require("express");
-const validateBody = require("../../middleWares/validateBody");
+
+const { validateBody } = require("../../middleWares");
 const {
-  checkIfUserExist,
-  validateUserFields,
-} = require("../../middleWares/authorizeMiddlewares");
-const {
-  registrationController,
-  authorizationController,
-  getCurrentUser,
-  logoutUser,
-  updateSubscription,
-} = require("../../controllers/authorizeController");
-const { validateToken } = require("../../middleWares/validateToken");
+  registerSchema,
+  verificationSchema,
+  loginSchema,
+} = require("../../joiSchemas");
+
+const ctrl = require("../../controllers/authorizeController");
 
 const router = express.Router();
 
+router.post("/register", validateBody(registerSchema), ctrl.register);
+
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
+
 router.post(
-  "/register",
-  validateBody,
-  validateUserFields,
-  checkIfUserExist,
-  registrationController
+  "/verify",
+  validateBody(verificationSchema),
+  ctrl.resendVerifyEmail
 );
-router.post(
-  "/login",
-  validateBody,
-  validateUserFields,
-  authorizationController
-);
-router.post("/logout", validateToken, logoutUser);
-router.get("/current", validateToken, getCurrentUser);
-router.patch("/", validateToken, validateBody, updateSubscription )
+
+router.post("/login", validateBody(loginSchema), ctrl.login);
+
+// router.post("/logout", );
+// router.get("/current", );
+// avatar change
 
 module.exports = router;
