@@ -6,8 +6,12 @@ const dotenv = require("dotenv");
 const path = require("path");
 dotenv.config({ path: path.join(__dirname, "environment", ".env") });
 
+
 const authRouter = require("./routes/api/authRouter");
 const usersRouter = require("./routes/api/usersRouter");
+
+const reviewsRouter = require("./routes/api/reviews");
+
 
 const app = express();
 
@@ -23,7 +27,7 @@ app.use("/users", usersRouter);
 
 // app.use("/api-docs");
 // app.use("/api/tasks", tasksRouter);
-// app.use("/api/reviews", reviewsRouter);
+app.use("/api/reviews", reviewsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
