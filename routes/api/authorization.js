@@ -7,7 +7,8 @@ const {
   loginSchema,
 } = require("../../joiSchemas");
 
-const ctrl = require("../../controllers/authorizeController");
+const ctrl = require("../../controllers/authControllers");
+const authenticate = require("../../middleWares/authenticate");
 
 const router = express.Router();
 
@@ -22,6 +23,8 @@ router.post(
 );
 
 router.post("/login", validateBody(loginSchema), ctrl.login);
+
+router.post("/logout", authenticate, ctrl.logout);
 
 // router.post("/logout", );
 // router.get("/current", );
