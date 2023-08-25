@@ -26,8 +26,8 @@ router.post("/login", validateBody(loginSchema), ctrl.login);
 
 router.post("/logout", authenticate, ctrl.logout);
 
-// router.post("/logout", );
-// router.get("/current", );
+router.get("/current", authenticate, ctrl.getCurrentUser);
+
 // avatar change
 
 module.exports = router;

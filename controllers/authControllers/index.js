@@ -5,6 +5,7 @@ const login = require("./login");
 const verifyEmail = require("./verifyEmail");
 const resendVerifyEmail = require("./resendVerifyEmail");
 const logout = require("./logout");
+const getCurrentUser = require("./getCurrentUser");
 
 module.exports = {
   register: ctrlWrapper(register),
@@ -12,4 +13,5 @@ module.exports = {
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   login: ctrlWrapper(login),
   logout: ctrlWrapper(logout),
+  getCurrentUser: ctrlWrapper(getCurrentUser),
 };
