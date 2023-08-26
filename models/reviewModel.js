@@ -22,11 +22,7 @@ const reviewSchema = new Schema(
       ref: 'user',
       unique: true,
       required: [true, "Set owner contact"],
-    },
-    // avatarUrl: {
-    //   type: String,
-    //   default: '/default-avatar.jpg', // Заглушка для avatarUrl
-    // }
+    }
   },
   {
     versionKey: false,
