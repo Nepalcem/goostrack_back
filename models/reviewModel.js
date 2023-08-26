@@ -3,6 +3,7 @@ const handleMongooseError = require('../helpers/handleMongooseError');
 
 const reviewSchema = new Schema(
   {
+  //  _id: false,
     rating: {
       type: Number,
       min: 0,
@@ -22,6 +23,10 @@ const reviewSchema = new Schema(
       unique: true,
       required: [true, "Set owner contact"],
     },
+    // avatarUrl: {
+    //   type: String,
+    //   default: '/default-avatar.jpg', // Заглушка для avatarUrl
+    // }
   },
   {
     versionKey: false,
