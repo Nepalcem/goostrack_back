@@ -3,6 +3,7 @@ const handleMongooseError = require('../helpers/handleMongooseError');
 
 const reviewSchema = new Schema(
   {
+  //  _id: false,
     rating: {
       type: Number,
       min: 0,
@@ -21,7 +22,7 @@ const reviewSchema = new Schema(
       ref: 'user',
       unique: true,
       required: [true, "Set owner contact"],
-    },
+    }
   },
   {
     versionKey: false,
