@@ -34,8 +34,13 @@ const addReview = async (req, res) => {
   };
 
   res.status(201).json({
+<<<<<<< HEAD
     message: "Review successfully added",
     review
+=======
+    message: "Review added successfully",
+    data: review,
+>>>>>>> 6f07ef9 (remove owner id;)
   });
 };
 
