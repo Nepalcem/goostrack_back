@@ -11,14 +11,14 @@ const getReviewByUser = async (req, res) => {
 
   const reviews = await Review.find({ owner }).populate(
     "owner",
-    "_id username avatarURL"
+    "-_id username avatarURL"
   );
 
   if (!reviews || reviews.length === 0) {
     throw HttpError(404, "No reviews found for this owner");
   }
 
-  res.status(200).json({ code: 200, reviews });
+  res.status(200).json({ reviews });
 };
 
 module.exports = ctrlWrapper(getReviewByUser);

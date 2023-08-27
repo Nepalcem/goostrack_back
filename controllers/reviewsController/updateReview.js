@@ -1,13 +1,28 @@
-const { reviewsServices } = require("../services");
-const ctrlWrapper = require('../../helpers/ctrlWrapper');
+const ctrlWrapper = require("../../helpers/ctrlWrapper");
+const { HttpError } = require("../../helpers");
+const Review = require("../../models/reviewModel");
 
-// Змінити відгук за ID
 const updateReview = async (req, res) => {
-    const { id } = req.params;
-    const review = await reviewsServices.update(id, { ...req.body });
-    res.status(200).json({ code: 200, data: review });
+  const owner = req.user?._id;
+
+  if (!owner) {
+    throw HttpError(400, 'Missing owner');
+  }
+
+  if (!req.body) {
+    throw HttpError(400, 'Missing body of request');
+  }
+
+  const review = await Review.findOneAndUpdate({ owner }, req.body, { new: true });
+
+  if (!review) {
+    throw HttpError(404, 'Review not found for update');
+  }
+
+  res.json({
+    message: 'Review successfully update',
+    review,
+  });
   };
 
-  module.exports = {
-    updateReview: ctrlWrapper(updateReview),
-};
+  module.exports = ctrlWrapper(updateReview);

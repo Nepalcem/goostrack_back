@@ -31,7 +31,6 @@ const addReview = async (req, res) => {
   await review.populate("owner", "_id avatarURL").execPopulate();
 
   res.status(201).json({
-    code: 200,
     message: "Review added successfully",
     data: review,
   });
