@@ -3,7 +3,6 @@ const handleMongooseError = require('../helpers/handleMongooseError');
 
 const reviewSchema = new Schema(
   {
-  //  _id: false,
     rating: {
       type: Number,
       min: 0,
