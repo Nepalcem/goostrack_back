@@ -11,8 +11,9 @@ const getAll = async (req, res) => {
 
   // Отримуємо всі відгуки for test on local DB
   const reviews = await Review.find({}, '', { skip, limit })
-    .populate('owner', '_id name avatarUrl')
+    .populate('owner', '_id username avatarURL')
     .sort('-createdAt');
+
 
   const reviewsCollection = await Review.aggregate([
     { $match: { owner: { $exists: true, $ne: null } } },
@@ -25,7 +26,7 @@ const getAll = async (req, res) => {
         comment: 1,
         createdAt: 1,
         updatedAt: 1,
-        owner: { _id: 1, name: 1, avatarUrl: 1 },
+        owner: { user_id: '1', name: '$owner.username', avatarUrl: '$owner.avatarUrl' },
       },
     },
     { $sort: { createdAt: -1 } },
