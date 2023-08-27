@@ -18,7 +18,7 @@ router.post('/own', authenticate, validateBody(reviewSchema), ctrl.addReview);
 
 // // update review: PATCH http://localhost:8000/api/reviews/own
 // // body raw { "rating": 3, "comment": "The program..."}
-// router.patch('/own', ctrl.updateReview);
+router.patch('/own', authenticate, ctrl.updateReview);
 
 // // delete review: DELETE http://localhost:8000/api/reviews/own
 // router.delete('/own', ctrl.removeReview);
