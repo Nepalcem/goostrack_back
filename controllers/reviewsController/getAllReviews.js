@@ -9,11 +9,9 @@ const getAll = async (req, res) => {
 
   const { page, limit, skip } = pagination(currentPage, currentLimit);
 
-  // Отримуємо всі відгуки for test on local DB
   const reviews = await Review.find({}, '', { skip, limit })
     .populate('owner', '_id username avatarURL')
     .sort('-createdAt');
-
 
   const reviewsCollection = await Review.aggregate([
     { $match: { owner: { $exists: true, $ne: null } } },
@@ -46,7 +44,6 @@ const getAll = async (req, res) => {
     totalPages: Math.ceil(totalReviews / limit),
     currentPage: page,
     limit,
-    // reviewsCollection
     reviews
   });
 };

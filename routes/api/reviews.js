@@ -9,8 +9,8 @@ const router = Router();
 // returns all feedbacks: GET http://localhost:8000/api/reviews
 router.get('/', ctrl.getAllReviews);
 
-// // returns all feedbacks for its owner: GET http://localhost:8000/api/reviews/own
-// router.get('/own', ctrl.getReviewByUser);
+// returns feedback for its owner: GET http://localhost:8000/api/reviews/own
+router.get('/own', authenticate, ctrl.getReviewByUser);
 
 // create new feedback: POST http://localhost:8000/api/reviews/own
 // body raw { "rating": 5, "comment": "A good, visual time planning program."}
