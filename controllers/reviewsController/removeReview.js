@@ -1,13 +1,23 @@
-const { reviewsServices } = require("../services");
-const ctrlWrapper = require('../../helpers/ctrlWrapper');
+const Review = require("../../models/reviewModel");
+const ctrlWrapper = require("../../helpers/ctrlWrapper");
+const { HttpError } = require("../../helpers");
 
-// Видалити відгук за ID
 const removeReview = async (req, res) => {
-    const { id } = req.params;
-    const review = await reviewsServices.remove(id);
-    res.status(200).json({ code: 200, data: review });
-  };
+  const owner = req.user?._id;
 
-  module.exports = {
-    removeReview: ctrlWrapper(removeReview),
+  if (!owner) {
+    throw HttpError(400, "Missing owner");
+  }
+
+  const review = await Review.findOneAndRemove({ owner });
+
+  if (!review) {
+    throw HttpError(404, "Review not found for delete");
+  }
+
+  res.json({
+    message: "Review deleted successfully",
+  });
 };
+
+module.exports = ctrlWrapper(removeReview);
