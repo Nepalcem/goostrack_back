@@ -3,16 +3,14 @@ const HttpError = require("../../helpers/HttpError");
 const Review = require("../../models/reviewModel");
 
 const addReview = async (req, res) => {
-  const body = req.body;
+  const data = req.body;
   const owner = req.user?._id;
-
-  console.log(body)
 
   if (!owner) {
     throw HttpError(400, "Missing owner");
   }
 
-  if (!body) {
+  if (!data) {
     throw HttpError(400, "Missing body of request");
   }
 
@@ -22,16 +20,20 @@ const addReview = async (req, res) => {
     return res.status(409).json({ message: "Review from you already exists" });
   }
 
-  const review = await Review.create({ ...body, owner });
+  const result = await Review.create({ ...data, owner });
 
-  if (!review) {
+  if (!result) {
     throw HttpError(500, "Failed to create a review");
   }
 
-  await review.populate("owner", "_id avatarURL").execPopulate();
+  const review = {
+    _id: result._id,
+    rating: result.rating,
+    comment: result.comment,
+    createdAt: result.createdAt,
+  };
 
   res.status(201).json({
-    code: 200,
     message: "Review added successfully",
     data: review,
   });

@@ -10,8 +10,7 @@ dotenv.config({ path: path.join(__dirname, "environment", ".env") });
 const authRouter = require("./routes/api/authRouter");
 const usersRouter = require("./routes/api/usersRouter");
 
-const reviewsRouter = require("./routes/api/reviews");
-
+const reviewsRouter = require("./routes/api/reviewsRouter");
 
 const app = express();
 
