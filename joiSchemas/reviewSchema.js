@@ -7,6 +7,5 @@ const reviewSchema = Joi.object({
   }),
 });
 
-const reviewSchemas = reviewSchema;
 
-module.exports = reviewSchemas;
+module.exports = reviewSchema;

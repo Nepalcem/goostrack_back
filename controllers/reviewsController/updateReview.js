@@ -1,13 +1,54 @@
-const { reviewsServices } = require("../services");
-const ctrlWrapper = require('../../helpers/ctrlWrapper');
+const { HttpError, ctrlWrapper } = require("../../helpers");
+const Review = require("../../models/reviewModel");
 
-// Змінити відгук за ID
 const updateReview = async (req, res) => {
-    const { id } = req.params;
-    const review = await reviewsServices.update(id, { ...req.body });
-    res.status(200).json({ code: 200, data: review });
-  };
+  const owner = req.user?._id;
 
-  module.exports = {
-    updateReview: ctrlWrapper(updateReview),
+  if (!owner) {
+    throw HttpError(400, "Missing owner");
+  }
+
+  const existingReview = await Review.findOne({ owner });
+
+  if (!existingReview) {
+    throw HttpError(404, "Review not found for update");
+  }
+
+  const updatedFields = req.body;
+  let isUpdateRequired = false;
+
+  if (
+    "rating" in updatedFields &&
+    existingReview.rating !== updatedFields.rating
+  ) {
+    isUpdateRequired = true;
+  }
+
+  if (
+    "comment" in updatedFields &&
+    existingReview.comment !== updatedFields.comment
+  ) {
+    isUpdateRequired = true;
+  }
+
+  if (!isUpdateRequired) {
+    throw HttpError(404, "Nothing for update");
+  }
+
+  const updatedReview = await Review.findOneAndUpdate(
+    { owner },
+    updatedFields,
+    { new: true }
+  );
+
+  if (!updatedReview) {
+    throw HttpError(500, "Failed to update the review");
+  }
+
+  res.json({
+    message: "Review successfully updated",
+    review: updatedReview,
+  });
 };
+
+module.exports = ctrlWrapper(updateReview);

@@ -10,7 +10,7 @@ const getAll = async (req, res) => {
   const { page, limit, skip } = pagination(currentPage, currentLimit);
 
   const reviews = await Review.find({}, '', { skip, limit })
-    .populate('owner', '_id username avatarURL')
+    .populate('owner', '-_id username avatarURL')
     .sort('-createdAt');
 
   const reviewsCollection = await Review.aggregate([
@@ -39,7 +39,6 @@ const getAll = async (req, res) => {
   const totalReviews = await Review.countDocuments();
 
   res.status(200).json({
-    code:200,
     totalReviews,
     totalPages: Math.ceil(totalReviews / limit),
     currentPage: page,
