@@ -34,8 +34,9 @@ const addReview = async (req, res) => {
   };
 
   res.status(201).json({
-    message: "Review successfully added",
-    review
+    code: 200,
+    message: "Review added successfully",
+    data: review,
   });
 };
 
