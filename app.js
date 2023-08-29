@@ -9,6 +9,7 @@ dotenv.config({ path: path.join(__dirname, "environment", ".env") });
 
 const authRouter = require("./routes/api/authRouter");
 const usersRouter = require("./routes/api/usersRouter");
+const tasksRouter = require('./routes/api/tasksRouter');
 
 const reviewsRouter = require("./routes/api/reviewsRouter");
 
@@ -25,7 +26,7 @@ app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 
 // app.use("/api-docs");
-// app.use("/api/tasks", tasksRouter);
+app.use("/api/tasks", tasksRouter);
 app.use("/api/reviews", reviewsRouter);
 
 app.use((req, res) => {
