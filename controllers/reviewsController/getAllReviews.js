@@ -9,13 +9,9 @@ const getAll = async (req, res) => {
 
   const { page, limit, skip } = pagination(currentPage, currentLimit);
 
-  const reviews = await Review.find({}, '', { skip, limit })
-    .populate('owner', '-_id username avatarURL')
-    .sort('-createdAt');
-
-  const reviewsCollection = await Review.aggregate([
-    { $match: { owner: { $exists: true, $ne: null } } },
-    { $lookup: { from: 'user', localField: 'owner', foreignField: '_id', as: 'owner' } },
+  const reviews = await Review.aggregate([
+    { $match: { owner: { $exists: true, $ne: null } } }, // chose reviews only with valid user(not delete)
+    { $lookup: { from: 'users', localField: 'owner', foreignField: '_id', as: 'owner' } },
     { $unwind: '$owner' },
     {
       $project: {
@@ -24,7 +20,7 @@ const getAll = async (req, res) => {
         comment: 1,
         createdAt: 1,
         updatedAt: 1,
-        owner: { user_id: '1', name: '$owner.username', avatarUrl: '$owner.avatarUrl' },
+        owner: { name: '$owner.username', avatarURL: '$owner.avatarURL' },
       },
     },
     { $sort: { createdAt: -1 } },
@@ -32,7 +28,7 @@ const getAll = async (req, res) => {
     { $limit: limit },
   ]);
 
-  if (!reviewsCollection) {
+  if (!reviews) {
     throw HttpError(404, 'Not found reviews');
   }
 
