@@ -6,10 +6,13 @@ const editUserSchema = require("./editUserSchema");
 
 const reviewSchema = require("./reviewSchema");
 
+const schemaAddTask = require('./schemaAddTask');
+
 module.exports = {
   registerSchema,
   verificationSchema,
   loginSchema,
   editUserSchema,
   reviewSchema,
+  schemaAddTask,
 };
