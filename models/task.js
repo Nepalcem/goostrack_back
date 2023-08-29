@@ -36,7 +36,7 @@ const taskSchema = new Schema(
       enum: ["low", "medium", "high"],
       default: "low",
       trim: true,
-      required: true,
+      required: true, 
     },
     category: {
       type: String,
