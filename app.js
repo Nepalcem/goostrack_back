@@ -24,10 +24,8 @@ app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
-
-// app.use("/api-docs");
-app.use("/api/tasks", tasksRouter);
-app.use("/api/reviews", reviewsRouter);
+app.use("/tasks", tasksRouter);
+app.use("/reviews", reviewsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
