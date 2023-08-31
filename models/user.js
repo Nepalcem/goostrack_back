@@ -43,14 +43,17 @@ const userSchema = new Schema(
     birthday: {
       type: Date,
       match: birthdayRegexp,
+      default: null,
     },
     skype: {
       type: String,
       maxlength: 16,
+      default: null,
     },
     phone: {
       type: String,
       match: phoneRegexp,
+      default: null,
     },
     verify: {
       type: Boolean,
