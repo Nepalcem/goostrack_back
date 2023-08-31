@@ -3,7 +3,7 @@ const fs = require("fs/promises");
 const cloudinary = require("cloudinary").v2;
 
 const { User } = require("../../models");
-const HttpError = require("../../helpers");
+const { HttpError } = require("../../helpers");
 
 const { CLOUD_NAME, API_KEY, API_SECRET } = process.env;
 
