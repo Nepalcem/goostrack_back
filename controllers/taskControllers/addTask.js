@@ -14,8 +14,8 @@ const addTask = async (req, res, next) => {
     throw HttpError(400, "Missing body of request");
   }
   
- if (start>=end) {
-    throw HttpError(400, "End should be greater then Start");
+ if (start >= end) {
+    throw HttpError(400, "End should be greater then Start time");
   }
 
 
