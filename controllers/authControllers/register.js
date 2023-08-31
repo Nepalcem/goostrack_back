@@ -19,7 +19,7 @@ const register = async (req, res) => {
   const avatarURL = gravatar.url(email);
   const verificationToken = nanoid();
 
-  const newUser = await User.create({
+  await User.create({
     ...req.body,
     password: hashedPassword,
     avatarURL,
