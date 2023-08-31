@@ -19,6 +19,13 @@ const changeAvatar = async (req, res) => {
   if (!req.file) {
     throw HttpError(404, "Image not found");
   }
+  if (req.file.fieldname !== "avatar") {
+    throw HttpError(400, "fieldname must be 'avatar'");
+  }
+  if (req.file.mimetype !== "image/jpeg") {
+    throw HttpError(400, "file type must be jpg");
+  }
+  // console.log(req.file);
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
 
@@ -37,7 +44,9 @@ const changeAvatar = async (req, res) => {
       resource_type: "image",
     },
     function (error, result) {
-      console.log(error);
+      if (error) {
+        throw HttpError(500, `Error:${error}. Please try again later`);
+      }
       avatarURL = result.url;
     }
   );
