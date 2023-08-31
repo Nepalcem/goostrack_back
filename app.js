@@ -6,10 +6,9 @@ const dotenv = require("dotenv");
 const path = require("path");
 dotenv.config({ path: path.join(__dirname, "environment", ".env") });
 
-
 const authRouter = require("./routes/api/authRouter");
 const usersRouter = require("./routes/api/usersRouter");
-const tasksRouter = require('./routes/api/tasksRouter');
+const tasksRouter = require("./routes/api/tasksRouter");
 
 const reviewsRouter = require("./routes/api/reviewsRouter");
 
@@ -17,7 +16,7 @@ const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
-app.use(express.static("public"));
+app.use(express.static("temp")); // to delete
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
