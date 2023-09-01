@@ -22,10 +22,9 @@ const changeAvatar = async (req, res) => {
   if (req.file.fieldname !== "avatar") {
     throw HttpError(400, "fieldname must be 'avatar'");
   }
-  if (req.file.mimetype !== "image/jpeg") {
-    throw HttpError(400, "file type must be jpg");
+  if (req.file.mimetype !== "image/jpeg" && req.file.mimetype !== "image/png") {
+    throw HttpError(400, "file type must be jpg, jpeg, png");
   }
-  // console.log(req.file);
   const { _id } = req.user;
   const { path: tempUpload, originalname } = req.file;
 
