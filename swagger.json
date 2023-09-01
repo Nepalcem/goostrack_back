@@ -4,10 +4,6 @@
         "version": "2.0.3",
         "title": "Goose Calendar - OpenAPI 3.0",
         "description": "This is a Goose Calendar Server based on the OpenAPI 3.0 specification.<p>The project is a web application for efficient time planning.It includes the ability to register users, authenticate and authorize them. Additionally, users can create and track their tasks according to date and time, view own statistics and categorize task by priority and progress status.The application features a user-friendly and intuitive interface that facilitates easy and quick execution of all necessary actions. Furthermore, the project ensures user security through password encryption and token-based identification.</p><p><strong>Technology Stack Used in the Project:</strong></p><p>Node.js - JavaScript runtime environment on the server.</p><p>Express.js - framework for web application development on Node.js.</p><p>MongoDB - NoSQL database</p>",
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        },
         "contact": {
             "email": "imbigdash@gmail.com"
         }
@@ -45,6 +41,139 @@
         }
     ],
     "paths": {
+        "auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Auth new user",
+                "parameters": [],
+                "security": [
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/registerSchema"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "parameters": [],
+                "security": [
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/loginSchema"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User logout",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/auth/verify": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User verification",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/verificationSchema"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/verify/:verificationToken": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Confirmation of verification",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
         "/users/current": {
             "get": {
                 "tags": [
@@ -80,7 +209,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "User updateInfo",
+                "summary": "User update info",
                 "parameters": [],
                 "security": [
                     {
@@ -111,6 +240,47 @@
                     },
                     "404": {
                         "description": "User not found",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/edit/avatar": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User update avatar",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "UserUpdate's avatar object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAvatarRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateAvatarRequest"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
                         "content": {}
                     }
                 }
