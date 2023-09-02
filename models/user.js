@@ -39,6 +39,7 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
       required: true,
+      default: null,
     },
     birthday: {
       type: Date,
