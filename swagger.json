@@ -48,21 +48,34 @@
                 ],
                 "summary": "Auth new user",
                 "parameters": [],
-                "security": [
-                ],
+                "requestBody": {
+                    "description": "<p><strong>username</strong> - string, Username must be no more than 16 symbols </p><p><strong>email</strong> - string</p><p><strong>password</strong> - string, Password must contain at least 1 Upper case letter, 1 lower case letter and be longer than 8 symbols,</p>",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRegister"
+                            }
+                        }
+                    }
+                },
+                "security": [],
                 "responses": {
-                    "200": {
-                        "description": "Successful operation",
+                    "201": {
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/registerSchema"
+                                    "$ref": "#/components/schemas/registerSchemaResponse"
                                 }
                             }
                         }
                     },
-                    "401": {
-                        "description": "Not found"
+                    "400": {
+                        "description": "Missing required FieldName field"
+                    },
+                    "409":{
+                        "description": "Email in use"
                     }
                 }
             }
@@ -74,8 +87,7 @@
                 ],
                 "summary": "Login user",
                 "parameters": [],
-                "security": [
-                ],
+                "security": [],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -109,8 +121,7 @@
                     "200": {
                         "description": "Successful operation",
                         "content": {
-                            "application/json": {
-                            }
+                            "application/json": {}
                         }
                     },
                     "401": {
@@ -164,8 +175,7 @@
                     "200": {
                         "description": "Successful operation",
                         "content": {
-                            "application/json": {
-                            }
+                            "application/json": {}
                         }
                     },
                     "401": {
@@ -696,7 +706,31 @@
                     "scheme": "bearer",
                     "bearerFormat": "JWT"
                 }
-            }
+            },
+                "UserRegister": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "description": "Username",
+                      "example": "Iryna Dev"
+
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "iryna@gmail.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "Iryna1234567$"
+                    }
+                  },
+                  "required": ["username", "email", "password"]
+                },
+                "registerSchemaResponse":{
+                    "type": "object",
+                    "example": "Please verify your email"
+                }
+              }
         }
     }
-}
