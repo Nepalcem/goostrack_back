@@ -6,7 +6,7 @@ const getCurrentUser = async (req, res) => {
     phone,
     skype,
     birthday,
-    avatar: avatarURL,
+    avatarURL,
   });
 };
 
