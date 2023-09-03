@@ -4,20 +4,9 @@ const { Task } = require("../../models");
 const getAllTasks = async (req, res) => {
  const owner = req.user?._id;
  
-  let { year, month, day } = req.query;
+ const { year, month, day } = req.query;
 
-  const serverTime = new Date();
-  const currentMonthIndex = serverTime.getMonth();
-  const currentYear = serverTime.getFullYear();
-  
-  if (!month) {
-    month = currentMonthIndex + 1;
-  }
-  if (!year) {
-    year = currentYear
-  }
-
-  console.log(year, month, day)
+ console.log(year, month, day)
 
   if (month > 12 || month <= 1) {
     throw HttpError(400, 'Wrong month. Min - 1, max - 12');
@@ -27,7 +16,9 @@ const getAllTasks = async (req, res) => {
     throw HttpError(400, 'Missing owner');
   }
 
-  
+  if (!year || !month) {
+    throw HttpError(400, 'Missing year or month');
+  }
 
   const currentMonth = `${year}-${month.toString().padStart(2, '0')}`;
   const currentDay = `${year}-${month.toString().padStart(2, '0')}-${day
