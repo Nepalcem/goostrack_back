@@ -11,9 +11,9 @@ const validateImage = () => {
       req.files.map(async (file) => await fs.unlink(file.path));
       next(HttpError(400, "Only one image allowed"));
     }
-    if (req.files[0].fieldname !== "avatar") {
+    if (req.files[0].fieldname !== "avatarURL") {
       await fs.unlink(req.files[0].path);
-      next(HttpError(400, "fieldname must be 'avatar'"));
+      next(HttpError(400, "fieldname must be 'avatarURL'"));
     }
     if (
       req.files[0].mimetype !== "image/jpeg" &&
