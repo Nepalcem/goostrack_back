@@ -553,10 +553,6 @@
                     "400": {
                         "description": "Not found",
                         "content": {}
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {}
                     }
                 }
             }
@@ -567,22 +563,7 @@
                     "Reviews"
                 ],
                 "summary": "Get user review",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "page",
-                        "required": false,
-                        "type": "integer",
-                        "description": "Number page"
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "required": false,
-                        "type": "integer",
-                        "description": "Count reviews in response"
-                    }
-                ],
+                "parameters": [],
                 "security": [
                     {
                         "Bearer": []
@@ -594,13 +575,13 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/GetAllReviewsResponse"
+                                    "$ref": "#/components/schemas/GetAllUsersReviewsResponse"
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "Bad Request",
+                        "description": "Not found",
                         "content": {}
                     },
                     "401": {
@@ -621,12 +602,12 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Tasks's object",
+                    "description": "<p><strong>rating</strong> - string, app score (from 1 to 5), </p><p><strong>comment</strong> - string, user comment 300 symbols maximum</p>",
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateReviewRequest"
+                                "$ref": "#/components/schemas/ReviewCreateSchema"
                             }
                         }
                     }
@@ -637,19 +618,53 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ReviewResponse"
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Review added successfully"
+                                        }
+                                    }
                                 }
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
-                        "content": {}
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "rating is required"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "content": {}
-                    }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Review from you already exists"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
                 }
             },
             "patch": {
@@ -829,10 +844,66 @@
             "verificationSchemaResponse": {
                 "type": "object",
                 "example": {
-                   "message": "Verification email sent" 
+                    "message": "Verification email sent"
                 }
+            },
+            "GetAllReviewsResponse": {
+                "type": "object",
+                "example": {
+                    "totalReviews": "2",
+                    "totalPages": 1,
+                    "currentPage": 1,
+                    "limit": 10,
+                    "reviews": [
+                        {
+                            "_id": "64f26065127adde86aa32278",
+                            "rating": 5,
+                            "comment": "GooseTrack is incredibly helpful, the sidebar with account management, calendar, and filter options make navigation seamless...",
+                            "owner": {
+                                "name": "Iryva Dev",
+                                "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693657749/users/...png"
+                            },
+                            "createdAt": "2023-09-01T22:06:29.420Z",
+                            "updatedAt": "2023-09-01T22:06:29.420Z"
+                        }
+                    ]
+                }
+            },
+            "GetAllUsersReviewsResponse": {
+                "type": "object",
+                "example": {
+                    "reviews": [
+                        {
+                            "_id": "64f25d43127adde86aa32269",
+                            "rating": 4,
+                            "comment": "GooseTrack is impressive, the calendar view and filter options make it easy to stay organized and focused. Highly recommended.",
+                            "owner": {
+                                "username": "Iryna Dev",
+                                "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693658162/users...png"
+                            },
+                            "createdAt": "2023-09-01T21:53:07.249Z",
+                            "updatedAt": "2023-09-01T21:53:07.249Z"
+                        }
+                    ]
+                }
+            },
+            "ReviewCreateSchema": {
+                "type": "object",
+                "properties": {
+                    "rating": {
+                        "type": "Number",
+                        "example": "5"
+                    },
+                    "comment": {
+                        "type": "string",
+                        "example": "GooseTrack is incredibly helpful and cool app 😻"
+                    }
+                },
+                "required": [
+                    "rating",
+                    "comment"
+                ]
             }
         }
     }
 }
-
