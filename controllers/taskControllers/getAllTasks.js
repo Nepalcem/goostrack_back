@@ -4,7 +4,18 @@ const { Task } = require("../../models");
 const getAllTasks = async (req, res) => {
  const owner = req.user?._id;
  
-  const { year, month, day } = req.query;
+  let { year, month, day } = req.query;
+
+  const serverTime = new Date();
+  const currentMonthIndex = serverTime.getMonth();
+  const currentYear = serverTime.getFullYear();
+  
+  if (!month) {
+    month = currentMonthIndex + 1;
+  }
+  if (!year) {
+    year = currentYear
+  }
 
   console.log(year, month, day)
 
@@ -16,9 +27,7 @@ const getAllTasks = async (req, res) => {
     throw HttpError(400, 'Missing owner');
   }
 
-  if (!year || !month) {
-    throw HttpError(400, 'Missing year or month');
-  }
+  
 
   const currentMonth = `${year}-${month.toString().padStart(2, '0')}`;
   const currentDay = `${year}-${month.toString().padStart(2, '0')}-${day
@@ -30,6 +39,8 @@ const getAllTasks = async (req, res) => {
   // console.log(year);
   // console.log(month);
   // console.log(day);
+
+  
 
   const tasks = await Task.find({
     owner,
