@@ -218,20 +218,16 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Verification successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/verificationTokenSchemaResponse"
-                                }
-                            }
-                        }
+                        "description": "Verification successful"
                     },
                     "401": {
                         "description": "Unauthorized"
                     },
                     "404": {
                         "description": "User not found"
+                    },
+                    "500": {
+                        "description": "Server error"
                     }
                 }
             }
@@ -368,6 +364,13 @@
                         "required": false,
                         "type": "string",
                         "description": "Any date of the month for which tasks must be returned. Format: YYYY-MM-DD"
+                    },
+                    {
+                        "in": "query",
+                        "name": "year",
+                        "required": false,
+                        "type": "string",
+                        "description": "Any date of the month for which tasks must be returned. Format: YYYY-MM-DD"
                     }
                 ],
                 "security": [
@@ -377,7 +380,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -391,8 +394,7 @@
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "error": "Missing request fields",
-                                    "message": "Missing required FieldName field"
+                                    "message": "Missing year or month"
                                 }
                             }
                         }
@@ -400,6 +402,17 @@
                     "401": {
                         "description": "Unauthorized",
                         "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Server error",
+                                    "message": "An unexpected error occurred on the server while processing the request."
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -408,26 +421,34 @@
                     "Tasks"
                 ],
                 "summary": "Create task",
-                "parameters": [],
+                "parameters": {},
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
                 "requestBody": {
-                    "description": "Tasks's object",
-                    "required": true,
+                    "description": "<p><strong>title</strong> - string, max 250 symbols, </p><p><strong>start</strong> - string, time in HH:MM format</p><p><strong>end</strong> - string, time in HH:MM format, must be more than start</p><p><strong>date</strong> - string, date in YYYY:MM:DD format </p><p><strong>priority</strong> - string, the field must be chosen between low/medium/high</p><p><strong>category</strong> - string, the field must be chosen between to-do/in-progress/done</p><p><strong>description</strong> - string or null, not required</p> ",
+                    "required": [
+                        true,
+                        "title",
+                        "start",
+                        "end",
+                        "date",
+                        "priority",
+                        "category"
+                    ],
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateTaskRequest"
+                                "$ref": "#/components/schemas/CreateTaskSchema"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "Successful operation",
+                        "description": "Created",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -442,7 +463,7 @@
                             "application/json": {
                                 "example": {
                                     "error": "Missing request fields",
-                                    "message": "Missing required FieldName field"
+                                    "message": "fields name is required"
                                 }
                             }
                         }
@@ -450,6 +471,17 @@
                     "401": {
                         "description": "Unauthorized",
                         "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Server error",
+                                    "message": "An unexpected error occurred on the server while processing the request."
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -459,7 +491,7 @@
                 "tags": [
                     "Tasks"
                 ],
-                "summary": "Change tasks",
+                "summary": "Update tasks",
                 "parameters": [
                     {
                         "in": "path",
@@ -475,23 +507,31 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Tasks's object",
-                    "required": true,
+                    "description": "<p><strong>title</strong> - string, max 250 symbols, </p><p><strong>start</strong> - string, time in HH:MM format</p><p><strong>end</strong> - string, time in HH:MM format, must be more than start</p><p><strong>date</strong> - string, date in YYYY:MM:DD format </p><p><strong>priority</strong> - string, the field must be chosen between low/medium/high</p><p><strong>category</strong> - string, the field must be chosen between to-do/in-progress/done</p><p><strong>description</strong> - string or null, not required</p> ",
+                    "required": [
+                        true,
+                        "title",
+                        "start",
+                        "end",
+                        "date",
+                        "priority",
+                        "category"
+                    ],
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/CreateTaskRequest"
+                                "$ref": "#/components/schemas/CreateTaskSchema"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/GetDeletePatchTaskResponse"
+                                    "$ref": "#/components/schemas/UpdateTaskResponse"
                                 }
                             }
                         }
@@ -510,6 +550,17 @@
                     "401": {
                         "description": "Unauthorized",
                         "content": {}
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Server error",
+                                    "message": "An unexpected error occurred on the server while processing the request."
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -534,22 +585,21 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "OK",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GetDeletePatchTaskResponse"
+                                "example": {
+                                    "message": "Task successfully deleted"
                                 }
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad Request",
+                    "404": {
+                        "description": "Not Found",
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "error": "Missing request fields",
-                                    "message": "Missing required FieldName field"
+                                    "message": "Not found"
                                 }
                             }
                         }
@@ -1063,6 +1113,90 @@
                 "type": "object",
                 "example": {
                     "message": "Review deleted successfully"
+                }
+            },
+            "GetTasksResponse": {
+                "type": "object",
+                "example": {
+                    "message": "Get all tasks for the month 9 2019",
+                    "tasks": [],
+                    "tasksByDay": []
+                }
+            },
+            "CreateTaskSchema": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Trip to Canada"
+                    },
+                    "start": {
+                        "type": "string",
+                        "example": "13:00"
+                    },
+                    "end": {
+                        "type": "string",
+                        "example": "23:00"
+                    },
+                    "date": {
+                        "type": "string",
+                        "example": "2023-09-15"
+                    },
+                    "priority": {
+                        "type": "string",
+                        "example": "high"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "in-progress"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "required": [
+                    "title",
+                    "start",
+                    "end",
+                    "date",
+                    "priority",
+                    "category"
+                ]
+            },
+            "CreateTaskResponse": {
+                "type": "object",
+                "example": {
+                    "title": "Trip to Canada",
+                    "start": "13:00",
+                    "end": "23:00",
+                    "date": "2023-09-15",
+                    "priority": "high",
+                    "category": "in-progress",
+                    "owner": "64f25fee127adde86aa32270",
+                    "description": "",
+                    "_id": "64f5bbced7ff69547fd6f1aa",
+                    "createdAt": "2023-09-04T11:13:18.301Z",
+                    "updatedAt": "2023-09-04T11:13:18.301Z"
+                }
+            },
+            "UpdateTaskResponse": {
+                "type": "object",
+                "example": {
+                    "message": "Task successfully updated",
+                    "result": {
+                        "_id": "64f5c96ad7ff69547fd6f5f5",
+                        "title": "Trip to Canada",
+                        "start": "13:00",
+                        "end": "23:00",
+                        "date": "2023-09-15",
+                        "priority": "high",
+                        "category": "in-progress",
+                        "owner": "64f25fee127adde86aa32270",
+                        "description": "book a hotel in Toronto!",
+                        "createdAt": "2023-09-04T12:11:22.128Z",
+                        "updatedAt": "2023-09-04T12:12:06.170Z"
+                    }
                 }
             }
         }
