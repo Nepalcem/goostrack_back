@@ -246,7 +246,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -258,6 +258,13 @@
                     "401": {
                         "description": "Unauthorized (provide valid token)",
                         "content": {}
+                    },
+                    "404": {
+                        "description": "Not found ",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error"
                     }
                 }
             }
@@ -275,7 +282,16 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "UserUpdate's object",
+                    "description": "</p><p><strong>file</strong> - file, must be in png or jpg format</p></p><p><strong>username</strong> - string, must be no more than 16 symbols</p><p><strong>email</strong> - string</p><p><strong>phone</strong> - string, in +380507771100 format </p><p><strong>skype</strong> - string</p><p><strong>birthday</strong> - string, must be YYYY-MM-DD</p> ",
+                    "required": [
+                        true,
+                        "file",
+                        "username",
+                        "email",
+                        "phone",
+                        "skype",
+                        "birthday"
+                    ],
                     "required": true,
                     "content": {
                         "application/json": {
@@ -286,8 +302,8 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Successful operation",
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -297,8 +313,19 @@
                         }
                     },
                     "404": {
-                        "description": "User not found",
+                        "description": "Not Found",
                         "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Server error",
+                                    "message": "Server error.Please try again later"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -309,30 +336,43 @@
                     "Users"
                 ],
                 "summary": "User update avatar",
-                "parameters": [],
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
                 "requestBody": {
-                    "description": "UserUpdate's avatar object",
+                    "description": "</p><p><strong>avatar</strong> - file, must be in image/png, image/jpeg format</p></p>",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/UpdateAvatarRequest"
+                                "type": "object",
+                                "properties": {
+                                    "avatar": {
+                                        "contentType": "image/png, image/jpeg",
+                                        "format": "binary"
+                                    }
+                                },
+                                "required": [
+                                    "avatar"
+                                ]
+                            },
+                            "encoding": {
+                                "avatar": {
+                                    "contentType": "image/png, image/jpeg"
+                                }
                             }
                         }
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Successful",
+                    "200": {
+                        "description": "OK",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/UpdateAvatarRequest"
+                                    "$ref": "#/components/schemas/UpdateAvatarResponse"
                                 }
                             }
                         }
@@ -340,6 +380,17 @@
                     "404": {
                         "description": "Not found",
                         "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": "Server error",
+                                    "message": "Server error"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1197,6 +1248,71 @@
                         "createdAt": "2023-09-04T12:11:22.128Z",
                         "updatedAt": "2023-09-04T12:12:06.170Z"
                     }
+                }
+            },
+            "CurrentUserResponse": {
+                "type": "object",
+                "example": {
+                    "username": "Iryna Dev",
+                    "email": "iryna@gmail.com",
+                    "phone": null,
+                    "skype": null,
+                    "birthday": null,
+                    "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693657749/users...png"
+                }
+            },
+            "UpdateUserRequest": {
+                "type": "object",
+                "properties": {
+                    "file": {
+                        "type": "png/jpg",
+                        "example": "myphoto.png"
+                    },
+                    "username": {
+                        "type": "string",
+                        "example": "Iryna Dev"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "iryna@gmail.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "+380507771100"
+                    },
+                    "skype": {
+                        "type": "string",
+                        "example": "+380507771100"
+                    },
+                    "birthday": {
+                        "type": "string",
+                        "example": "2020-09-20"
+                    }
+                },
+                "required": [
+                    "file",
+                    "username",
+                    "email",
+                    "phone",
+                    "skype",
+                    "birthday"
+                ]
+            },
+            "UpdateUserResponse": {
+                "type": "object",
+                "example": {
+                    "file": "myphoto.png",
+                    "username": "Iryna Dev",
+                    "email": "iryna@gmail.com",
+                    "phone": "+380507771100",
+                    "skype": "+380507771100",
+                    "birthday": "2020-09-20"
+                }
+            },
+            "UpdateAvatarResponse": {
+                "type": "object",
+                "example": {
+                    "avatar": "http://res.cloudinary.com/dfsbblojt/image/upload/updateAvatar/users...png"
                 }
             }
         }
