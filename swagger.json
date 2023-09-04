@@ -342,7 +342,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "</p><p><strong>avatar</strong> - file, must be in image/png, image/jpeg format</p></p>",
+                    "description": "<p><strong>avatar</strong> - file, must be in image/png, image/jpeg format</p>",
                     "required": true,
                     "content": {
                         "multipart/form-data": {
@@ -479,7 +479,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "<p><strong>title</strong> - string, max 250 symbols, </p><p><strong>start</strong> - string, time in HH:MM format</p><p><strong>end</strong> - string, time in HH:MM format, must be more than start</p><p><strong>date</strong> - string, date in YYYY:MM:DD format </p><p><strong>priority</strong> - string, the field must be chosen between low/medium/high</p><p><strong>category</strong> - string, the field must be chosen between to-do/in-progress/done</p><p><strong>description</strong> - string or null, not required</p> ",
+                    "description": "<p><strong>title</strong> - string, max 250 symbols</p><p><strong>start</strong> - string, time in HH:MM format</p><p><strong>end</strong> - string, time in HH:MM format, must be more than start</p><p><strong>date</strong> - string, date in YYYY:MM:DD format </p><p><strong>priority</strong> - string, the field must be chosen between low/medium/high</p><p><strong>category</strong> - string, the field must be chosen between to-do/in-progress/done</p>",
                     "required": [
                         true,
                         "title",
@@ -558,7 +558,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "<p><strong>title</strong> - string, max 250 symbols, </p><p><strong>start</strong> - string, time in HH:MM format</p><p><strong>end</strong> - string, time in HH:MM format, must be more than start</p><p><strong>date</strong> - string, date in YYYY:MM:DD format </p><p><strong>priority</strong> - string, the field must be chosen between low/medium/high</p><p><strong>category</strong> - string, the field must be chosen between to-do/in-progress/done</p><p><strong>description</strong> - string or null, not required</p> ",
+                    "description": "<p><strong>title</strong> - string, max 250 symbols, </p><p><strong>start</strong> - string, time in HH:MM format</p><p><strong>end</strong> - string, time in HH:MM format, must be more than start</p><p><strong>date</strong> - string, date in YYYY:MM:DD format </p><p><strong>priority</strong> - string, the field must be chosen between low/medium/high</p><p><strong>category</strong> - string, the field must be chosen between to-do/in-progress/done</p>",
                     "required": [
                         true,
                         "title",
@@ -1200,10 +1200,6 @@
                     "category": {
                         "type": "string",
                         "example": "in-progress"
-                    },
-                    "description": {
-                        "type": "string",
-                        "example": ""
                     }
                 },
                 "required": [
@@ -1225,7 +1221,6 @@
                     "priority": "high",
                     "category": "in-progress",
                     "owner": "64f25fee127adde86aa32270",
-                    "description": "",
                     "_id": "64f5bbced7ff69547fd6f1aa",
                     "createdAt": "2023-09-04T11:13:18.301Z",
                     "updatedAt": "2023-09-04T11:13:18.301Z"
@@ -1244,7 +1239,6 @@
                         "priority": "high",
                         "category": "in-progress",
                         "owner": "64f25fee127adde86aa32270",
-                        "description": "book a hotel in Toronto!",
                         "createdAt": "2023-09-04T12:11:22.128Z",
                         "updatedAt": "2023-09-04T12:12:06.170Z"
                     }
@@ -1266,7 +1260,7 @@
                 "properties": {
                     "file": {
                         "type": "png/jpg",
-                        "example": "myphoto.png"
+                        "example": "my-photo.png"
                     },
                     "username": {
                         "type": "string",
@@ -1301,7 +1295,7 @@
             "UpdateUserResponse": {
                 "type": "object",
                 "example": {
-                    "file": "myphoto.png",
+                    "file": "my-photo.png",
                     "username": "Iryna Dev",
                     "email": "iryna@gmail.com",
                     "phone": "+380507771100",

@@ -33,9 +33,7 @@ const schemaAddTask = Joi.object({
 
   category: Joi.string().valid("to-do", "in-progress", "done").required().messages({
     "string.pattern.base": `The field must be only "to-do" or "in-progress" or "done" `,
-  }),
-
-  description: Joi.string().allow(null).allow(""),
+  })
 })
   .custom(validateStartEndTime)
   .messages({
