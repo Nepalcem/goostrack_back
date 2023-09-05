@@ -41,7 +41,7 @@
         }
     ],
     "paths": {
-        "auth/register": {
+        "/auth/register": {
             "post": {
                 "tags": [
                     "Auth"
@@ -89,7 +89,7 @@
                 }
             }
         },
-        "auth/login": {
+        "/auth/login": {
             "post": {
                 "tags": [
                     "Auth"
