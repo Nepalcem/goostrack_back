@@ -979,22 +979,6 @@
     },
     "components": {
         "schemas": {
-            "securitySchemes": {
-                "Bearer": {
-                    "type": "http",
-                    "scheme": "bearer",
-                    "bearerFormat": "JWT",
-                    "flows": {
-                        "implicit": {
-                          "authorizationUrl": "https://nepalcem.github.io/goostrack_front/register",
-                          "scopes": {
-                            "read": "Read access",
-                            "write": "Write access"
-                          }
-                        }
-                      }
-                }
-            },
             "UserRegister": {
                 "type": "object",
                 "properties": {
@@ -1317,6 +1301,347 @@
                     "avatar": "http://res.cloudinary.com/dfsbblojt/image/upload/updateAvatar/users...png"
                 }
             }
-        }
+        },
+        "components": {
+            "schemas": {
+                "UserRegister": {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string",
+                            "description": "Username",
+                            "example": "Iryna Dev"
+                        },
+                        "email": {
+                            "type": "string",
+                            "example": "iryna@gmail.com"
+                        },
+                        "password": {
+                            "type": "string",
+                            "example": "Iryna1234567$"
+                        }
+                    },
+                    "required": [
+                        "username",
+                        "email",
+                        "password"
+                    ]
+                },
+                "registerSchemaResponse": {
+                    "type": "object",
+                    "example": "Please verify your email"
+                },
+                "UserLogin": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "type": "string",
+                            "example": "iryna@gmail.com"
+                        },
+                        "password": {
+                            "type": "string",
+                            "example": "Iryna1234567$"
+                        }
+                    },
+                    "required": [
+                        "email",
+                        "password"
+                    ]
+                },
+                "loginSchemaResponse": {
+                    "type": "object",
+                    "example": {
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjI1Y2ZhMTI3YWRkZTg2YWEzMjI2MCIsImlhdCI6MTY5MzY1ODEyOCwiZXhwIjoxNjk0MDkwMTI4fQ.Qyu42NimnpCLwtWg5keZ5QvC-SSOytUqftf5VxxEQMz",
+                        "user": {
+                            "username": "Iryna Dev",
+                            "email": "iryna.com",
+                            "avatar": "https://s.gravatar.com/avatar/5ffe2fd09d4f8a6dcb16c462e412df13?d=retro&s=100"
+                        }
+                    }
+                },
+                "logoutSchemaResponse": {
+                    "type": "object",
+                    "example": {
+                        "message": "Logout success"
+                    }
+                },
+                "verificationSchema": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                            "type": "string",
+                            "description": "user email",
+                            "example": "iryna@gmail.com"
+                        }
+                    },
+                    "required": "email"
+                },
+                "verificationTokenSchemaResponse": {
+                    "type": "object",
+                    "example": {
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjI1Y2ZhMTI3YWRkZTg2YWEzMjI2MCIsImlhdCI6MTY5MzY1ODEyOCwiZXhwIjoxNjk0MDkwMTI4fQ.Qyu42NimnpCLwtWg5keZ5QvC-SSOytUqftf5VxxEQMz",
+                        "user": {
+                            "username": "Iryna Dev",
+                            "email": "iryna.com",
+                            "avatar": "https://s.gravatar.com/avatar/5ffe2fd09d4f8a6dcb16c462e412df13?d=retro&s=100"
+                        }
+                    }
+                },
+                "verificationSchemaResponse": {
+                    "type": "object",
+                    "example": {
+                        "message": "Verification email sent"
+                    }
+                },
+                "GetAllReviewsResponse": {
+                    "type": "object",
+                    "example": {
+                        "totalReviews": "2",
+                        "totalPages": 1,
+                        "currentPage": 1,
+                        "limit": 10,
+                        "reviews": [
+                            {
+                                "_id": "64f26065127adde86aa32278",
+                                "rating": 5,
+                                "comment": "GooseTrack is incredibly helpful, the sidebar with account management, calendar, and filter options make navigation seamless...",
+                                "owner": {
+                                    "name": "Iryva Dev",
+                                    "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693657749/users/...png"
+                                },
+                                "createdAt": "2023-09-01T22:06:29.420Z",
+                                "updatedAt": "2023-09-01T22:06:29.420Z"
+                            },
+                            {
+                                "_id": "64f25d43127adde86aa32269",
+                                "rating": 4,
+                                "comment": "Very nice app.",
+                                "owner": {
+                                    "username": "Mark Team",
+                                    "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693658162/users...png"
+                                },
+                                "createdAt": "2023-07-01T21:53:07.249Z",
+                                "updatedAt": "2023-07-01T21:53:07.249Z"
+                            }
+                        ]
+                    }
+                },
+                "GetAllUsersReviewsResponse": {
+                    "type": "object",
+                    "example": {
+                        "reviews": [
+                            {
+                                "_id": "64f25d43127adde86aa32269",
+                                "rating": 5,
+                                "comment": "GooseTrack is impressive, the calendar view and filter options make it easy to stay organized and focused. Highly recommended.",
+                                "owner": {
+                                    "username": "Iryna Dev",
+                                    "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693658162/users...png"
+                                },
+                                "createdAt": "2023-09-01T21:53:07.249Z",
+                                "updatedAt": "2023-09-01T21:53:07.249Z"
+                            }
+                        ]
+                    }
+                },
+                "ReviewCreateSchema": {
+                    "type": "object",
+                    "properties": {
+                        "rating": {
+                            "type": "Number",
+                            "example": "5"
+                        },
+                        "comment": {
+                            "type": "string",
+                            "example": "GooseTrack is incredibly helpful and cool app 😻"
+                        }
+                    },
+                    "required": [
+                        "rating",
+                        "comment"
+                    ]
+                },
+                "UpdateReviewResponse": {
+                    "type": "object",
+                    "example": {
+                        "message": "Review successfully updated",
+                        "reviews": [
+                            {
+                                "_id": "64f25d43127adde86aa32269",
+                                "rating": 4,
+                                "comment": "Highly recommended.",
+                                "owner": "64f25fee127adde86aa32270",
+                                "createdAt": "2023-09-01T21:53:07.249Z",
+                                "updatedAt": "2023-09-01T21:53:07.249Z"
+                            }
+                        ]
+                    }
+                },
+                "DeleteReviewResponse": {
+                    "type": "object",
+                    "example": {
+                        "message": "Review deleted successfully"
+                    }
+                },
+                "GetTasksResponse": {
+                    "type": "object",
+                    "example": {
+                        "message": "Get all tasks for the month 9 2019",
+                        "tasks": [],
+                        "tasksByDay": []
+                    }
+                },
+                "CreateTaskSchema": {
+                    "type": "object",
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "example": "Trip to Canada"
+                        },
+                        "start": {
+                            "type": "string",
+                            "example": "13:00"
+                        },
+                        "end": {
+                            "type": "string",
+                            "example": "23:00"
+                        },
+                        "date": {
+                            "type": "string",
+                            "example": "2023-09-15"
+                        },
+                        "priority": {
+                            "type": "string",
+                            "example": "high"
+                        },
+                        "category": {
+                            "type": "string",
+                            "example": "in-progress"
+                        }
+                    },
+                    "required": [
+                        "title",
+                        "start",
+                        "end",
+                        "date",
+                        "priority",
+                        "category"
+                    ]
+                },
+                "CreateTaskResponse": {
+                    "type": "object",
+                    "example": {
+                        "title": "Trip to Canada",
+                        "start": "13:00",
+                        "end": "23:00",
+                        "date": "2023-09-15",
+                        "priority": "high",
+                        "category": "in-progress",
+                        "owner": "64f25fee127adde86aa32270",
+                        "_id": "64f5bbced7ff69547fd6f1aa",
+                        "createdAt": "2023-09-04T11:13:18.301Z",
+                        "updatedAt": "2023-09-04T11:13:18.301Z"
+                    }
+                },
+                "UpdateTaskResponse": {
+                    "type": "object",
+                    "example": {
+                        "message": "Task successfully updated",
+                        "result": {
+                            "_id": "64f5c96ad7ff69547fd6f5f5",
+                            "title": "Trip to Canada",
+                            "start": "13:00",
+                            "end": "23:00",
+                            "date": "2023-09-15",
+                            "priority": "high",
+                            "category": "in-progress",
+                            "owner": "64f25fee127adde86aa32270",
+                            "createdAt": "2023-09-04T12:11:22.128Z",
+                            "updatedAt": "2023-09-04T12:12:06.170Z"
+                        }
+                    }
+                },
+                "CurrentUserResponse": {
+                    "type": "object",
+                    "example": {
+                        "username": "Iryna Dev",
+                        "email": "iryna@gmail.com",
+                        "phone": null,
+                        "skype": null,
+                        "birthday": null,
+                        "avatarURL": "http://res.cloudinary.com/dfsbblojt/image/upload/v1693657749/users...png"
+                    }
+                },
+                "UpdateUserRequest": {
+                    "type": "object",
+                    "properties": {
+                        "file": {
+                            "type": "png/jpg",
+                            "example": "my-photo.png"
+                        },
+                        "username": {
+                            "type": "string",
+                            "example": "Iryna Dev"
+                        },
+                        "email": {
+                            "type": "string",
+                            "example": "iryna@gmail.com"
+                        },
+                        "phone": {
+                            "type": "string",
+                            "example": "+380507771100"
+                        },
+                        "skype": {
+                            "type": "string",
+                            "example": "+380507771100"
+                        },
+                        "birthday": {
+                            "type": "string",
+                            "example": "2020-09-20"
+                        }
+                    },
+                    "required": [
+                        "file",
+                        "username",
+                        "email",
+                        "phone",
+                        "skype",
+                        "birthday"
+                    ]
+                },
+                "UpdateUserResponse": {
+                    "type": "object",
+                    "example": {
+                        "file": "my-photo.png",
+                        "username": "Iryna Dev",
+                        "email": "iryna@gmail.com",
+                        "phone": "+380507771100",
+                        "skype": "+380507771100",
+                        "birthday": "2020-09-20"
+                    }
+                },
+                "UpdateAvatarResponse": {
+                    "type": "object",
+                    "example": {
+                        "avatar": "http://res.cloudinary.com/dfsbblojt/image/upload/updateAvatar/users...png"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "flows": {
+                    "implicit": {
+                      "authorizationUrl": "https://nepalcem.github.io/goostrack_front/register",
+                      "scopes": {
+                        "read": "Read access"
+                      }
+                    }
+                  }
+            }
     }
+}
 }
