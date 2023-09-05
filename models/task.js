@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
-const {handleMongooseError} = require("../helpers");
-
-// const formatDate = format(new Date(), "yyyy-MM-dd");
+const { handleMongooseError } = require("../helpers");
 
 const timeRegexp = /^([0-9]{2})\:([0-9]{2})$/;
 const dateRegexp = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
@@ -27,7 +25,6 @@ const taskSchema = new Schema(
     },
     date: {
       type: String,
-    //   default: formatDate,
       required: true,
       match: dateRegexp,
     },
@@ -36,7 +33,7 @@ const taskSchema = new Schema(
       enum: ["low", "medium", "high"],
       default: "low",
       trim: true,
-      required: true, 
+      required: true,
     },
     category: {
       type: String,
@@ -48,7 +45,7 @@ const taskSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-    }
+    },
   },
   { versionKey: false, timestamps: true }
 );

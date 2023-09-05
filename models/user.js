@@ -4,9 +4,6 @@ const { handleMongooseError } = require("../helpers");
 const emailRegexp =
   /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
 
-const passwordRegexp =
-  /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
 const birthdayRegexp = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
 const phoneRegexp =
@@ -24,7 +21,6 @@ const userSchema = new Schema(
       type: String,
       minlength: 8,
       required: [true, "Password is required"],
-      match: passwordRegexp,
     },
     email: {
       type: String,
@@ -38,7 +34,6 @@ const userSchema = new Schema(
     },
     avatarURL: {
       type: String,
-      // required: true,
       default: null,
     },
     birthday: {
