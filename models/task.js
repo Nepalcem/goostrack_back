@@ -1,7 +1,5 @@
 const { Schema, model } = require("mongoose");
-const {handleMongooseError} = require("../helpers");
-
-// const formatDate = format(new Date(), "yyyy-MM-dd");
+const { handleMongooseError } = require("../helpers");
 
 const timeRegexp = /^([0-9]{2})\:([0-9]{2})$/;
 const dateRegexp = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
@@ -22,12 +20,18 @@ const taskSchema = new Schema(
     end: {
       type: String,
       default: "09:30",
-      required: [true, "Please set end time of task"],
+      required: true,
       match: timeRegexp,
+      validate: {
+        validator: function (value) {
+          return value >= this.start;
+        },
+        message:
+          "Please set end time of the task, it should be later than start time",
+      },
     },
     date: {
       type: String,
-    //   default: formatDate,
       required: true,
       match: dateRegexp,
     },
@@ -36,7 +40,7 @@ const taskSchema = new Schema(
       enum: ["low", "medium", "high"],
       default: "low",
       trim: true,
-      required: true, 
+      required: true,
     },
     category: {
       type: String,
@@ -48,7 +52,7 @@ const taskSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-    }
+    },
   },
   { versionKey: false, timestamps: true }
 );
