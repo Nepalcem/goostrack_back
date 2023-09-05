@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
-const timeRegexp = /^([0-9]{2})\:([0-9]{2})$/;
-const dateRegexp = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+const { dateRegexp, timeRegexp } = require("../constants/regularExpressions");
+const { priorityEnum, taskStatusEnum } = require("../constants/enumArrays");
 
 const validateStartEndTime = (obj, helpers) => {
   function toMinute(time) {
@@ -27,13 +27,19 @@ const schemaAddTask = Joi.object({
   end: Joi.string().pattern(timeRegexp).min(5).max(5).required().messages({
     "string.pattern.base": `The field "end" must be of the following type "hh:mm"`,
   }),
-  priority: Joi.string().valid("low", "medium", "high").required().messages({
-    "string.pattern.base": `The field must be only "low" or "medium" or "high" `,
-  }),
+  priority: Joi.string()
+    .valid(...priorityEnum)
+    .required()
+    .messages({
+      "string.pattern.base": `The field must be only "low" or "medium" or "high" `,
+    }),
 
-  category: Joi.string().valid("to-do", "in-progress", "done").required().messages({
-    "string.pattern.base": `The field must be only "to-do" or "in-progress" or "done" `,
-  })
+  category: Joi.string()
+    .valid(...taskStatusEnum)
+    .required()
+    .messages({
+      "string.pattern.base": `The field must be only "to-do" or "in-progress" or "done" `,
+    }),
 })
   .custom(validateStartEndTime)
   .messages({

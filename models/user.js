@@ -1,14 +1,11 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
-const emailRegexp =
-  /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
-
-const birthdayRegexp = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
-
-const phoneRegexp =
-  // eslint-disable-next-line no-useless-escape
-  /^[\+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/;
+const {
+  emailRegexp,
+  birthdayRegexp,
+  phoneRegexp,
+} = require("../constants/regularExpressions");
 
 const userSchema = new Schema(
   {
