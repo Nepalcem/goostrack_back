@@ -1,11 +1,6 @@
 const Joi = require("joi").extend(require("@joi/date"));
 
-const emailRegexp =
-  /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
-
-const phoneRegexp =
-  // eslint-disable-next-line no-useless-escape
-  /^[\+]?3?[\s]?8?[\s]?\(?0\d{2}?\)?[\s]?\d{3}[\s|-]?\d{2}[\s|-]?\d{2}$/;
+const { emailRegexp, phoneRegexp } = require("../constants/regularExpressions");
 
 const editUserSchema = Joi.object({
   username: Joi.string().max(16).messages({
@@ -17,7 +12,7 @@ const editUserSchema = Joi.object({
     "string.base": "Email must be a string",
   }),
   phone: Joi.string().pattern(phoneRegexp).messages({
-    "string.pattern.base": "Invalid phone number",
+    "string.pattern.base": "Phone format must be +380xxxxxxxxx",
     "string.base": "phone must be a string",
   }),
   birthday: Joi.date().format("YYYY-MM-DD").messages({

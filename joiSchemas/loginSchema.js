@@ -1,10 +1,9 @@
 const Joi = require("joi");
 
-const emailRegexp =
-  /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
-
-const passwordRegexp =
-  /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+const {
+  emailRegexp,
+  passwordRegexp,
+} = require("../constants/regularExpressions");
 
 const loginSchema = Joi.object({
   email: Joi.string().required().pattern(emailRegexp).messages({

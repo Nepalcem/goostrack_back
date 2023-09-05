@@ -1,10 +1,8 @@
 const { Schema, model } = require("mongoose");
-const {handleMongooseError} = require("../helpers");
+const { handleMongooseError } = require("../helpers");
 
-// const formatDate = format(new Date(), "yyyy-MM-dd");
-
-const timeRegexp = /^([0-9]{2})\:([0-9]{2})$/;
-const dateRegexp = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+const { dateRegexp, timeRegexp } = require("../constants/regularExpressions");
+const { priorityEnum, taskStatusEnum } = require("../constants/enumArrays");
 
 const taskSchema = new Schema(
   {
@@ -27,20 +25,19 @@ const taskSchema = new Schema(
     },
     date: {
       type: String,
-    //   default: formatDate,
       required: true,
       match: dateRegexp,
     },
     priority: {
       type: String,
-      enum: ["low", "medium", "high"],
+      enum: priorityEnum,
       default: "low",
       trim: true,
-      required: true, 
+      required: true,
     },
     category: {
       type: String,
-      enum: ["to-do", "in-progress", "done"],
+      enum: taskStatusEnum,
       default: "to-do",
       trim: true,
       required: true,
@@ -48,7 +45,7 @@ const taskSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-    }
+    },
   },
   { versionKey: false, timestamps: true }
 );
