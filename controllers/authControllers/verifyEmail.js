@@ -1,5 +1,5 @@
 const { User } = require("../../models");
-const { HttpError, createToken } = require("../../helpers");
+const { HttpError } = require("../../helpers");
 
 const { FRONTEND_URL } = process.env;
 
@@ -10,14 +10,12 @@ const verifyEmail = async (req, res) => {
     throw HttpError(404, "User not found");
   }
 
-  const token = createToken(user._id);
-
   await User.findByIdAndUpdate(user._id, {
     verify: true,
     verificationToken: null,
   });
 
-  const redirectURL = `${FRONTEND_URL}/login?token=${token}`;
+  const redirectURL = `${FRONTEND_URL}/login`;
 
   res.redirect(301, redirectURL);
 };
