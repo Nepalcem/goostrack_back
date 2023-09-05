@@ -12,7 +12,7 @@ const editUserSchema = Joi.object({
     "string.base": "Email must be a string",
   }),
   phone: Joi.string().pattern(phoneRegexp).messages({
-    "string.pattern.base": "Invalid phone number",
+    "string.pattern.base": "Phone format must be +380xxxxxxxxx",
     "string.base": "phone must be a string",
   }),
   birthday: Joi.date().format("YYYY-MM-DD").messages({
