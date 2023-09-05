@@ -6,10 +6,6 @@ const addReview = async (req, res) => {
   const data = req.body;
   const owner = req.user?._id;
 
-  if (!owner) {
-    throw HttpError(400, "Missing owner");
-  }
-
   if (!data) {
     throw HttpError(400, "Missing body of request");
   }
