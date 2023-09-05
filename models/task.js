@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 
+
 const { dateRegexp, timeRegexp } = require("../constants/regularExpressions");
 const { priorityEnum, taskStatusEnum } = require("../constants/enumArrays");
 
@@ -20,8 +21,15 @@ const taskSchema = new Schema(
     end: {
       type: String,
       default: "09:30",
-      required: [true, "Please set end time of task"],
+      required: true,
       match: timeRegexp,
+      validate: {
+        validator: function (value) {
+          return value >= this.start;
+        },
+        message:
+          "Please set end time of the task, it should be later than start time",
+      },
     },
     date: {
       type: String,
