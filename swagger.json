@@ -292,7 +292,6 @@
                         "skype",
                         "birthday"
                     ],
-                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -984,7 +983,16 @@
                 "Bearer": {
                     "type": "http",
                     "scheme": "bearer",
-                    "bearerFormat": "JWT"
+                    "bearerFormat": "JWT",
+                    "flows": {
+                        "implicit": {
+                          "authorizationUrl": "https://nepalcem.github.io/goostrack_front/register",
+                          "scopes": {
+                            "read": "Read access",
+                            "write": "Write access"
+                          }
+                        }
+                      }
                 }
             },
             "UserRegister": {
