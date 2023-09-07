@@ -32,6 +32,7 @@ The Goose Track Time Planning Application is a powerful Full Stack tool designed
 8. Deployment:
    - Hosting: The app is hosted on the Render platform, with user photos securely stored and served from Cloudinary.
 9. User Feedback and Improvement:
+
 - Feedback Collection: Actively collects user feedback to drive continuous improvement in app features and usability, ensuring it meets user expectations and needs.
 
 [Live Page](https://nepalcem.github.io/goostrack_front/)
@@ -72,11 +73,11 @@ To install Goose Track, follow these steps:
 - [Frontend Repository](https://github.com/Nepalcem/goostrack_front)
 - [Backend Repository](https://github.com/Nepalcem/goostrack_back)
 - [Swagger](https://goostrack-backend.onrender.com/api-docs)
-
 - [Live Page](https://nepalcem.github.io/goostrack_front/)
 
 ## Backend team
 
+- [Michael Lykhovyd](https://github.com/Nepalcem)
 - [Iryna Bigdash](https://github.com/Iryna-Bigdash)
 - [Olexandr Hrynenko](https://github.com/laytlat)
 - [Nataliia Dyrkach](https://github.com/NataliiaDyrkach)
