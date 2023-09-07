@@ -18,7 +18,7 @@ const avatarDir = path.join(__dirname, "../", "../", "temp");
 const editUser = async (req, res) => {
   const { _id } = req.user;
 
-  let avatarURL = null;
+  let avatarURL = req.user.avatarURL;
 
   if (req.files.length > 0) {
     const { path: tempUpload, originalname } = req.files[0];
