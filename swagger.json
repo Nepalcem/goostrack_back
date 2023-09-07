@@ -279,13 +279,13 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "</p><p><strong>file</strong> - file, must be in png or jpg format</p></p><p><strong>username</strong> - string, must be no more than 16 symbols</p><p><strong>email</strong> - string</p><p><strong>phone</strong> - string, in +380507771100 format </p><p><strong>skype</strong> - string</p><p><strong>birthday</strong> - string, must be YYYY-MM-DD</p> ",
+                    "description": "</p><p><strong>avatarURL</strong> - file, must be in png or jpg format</p></p><p><strong>username</strong> - string, must be no more than 16 symbols</p><p><strong>email</strong> - string</p><p><strong>phone</strong> - string, in +380507771100 format </p><p><strong>skype</strong> - string</p><p><strong>birthday</strong> - string, must be YYYY-MM-DD</p> ",
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "file": {
+                                    "avatarURL": {
                                         "type": "string",
                                         "format": "binary"
                                     },
@@ -309,14 +309,7 @@
                                         "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
                                     }
                                 },
-                                "required": [
-                                    "file",
-                                    "username",
-                                    "email",
-                                    "phone",
-                                    "skype",
-                                    "birthday"
-                                ]
+                                "required": [] 
                             }
                         }
                     }
@@ -1205,7 +1198,7 @@
             "UpdateUserRequest": {
                 "type": "object",
                 "properties": {
-                    "file": {
+                    "avatarURL": {
                         "type": "png/jpg",
                         "example": "my-photo.png"
                     },
@@ -1231,7 +1224,7 @@
                     }
                 },
                 "required": [
-                    "file",
+                    "avatarURL",
                     "username",
                     "email",
                     "phone",
@@ -1242,7 +1235,7 @@
             "UpdateUserResponse": {
                 "type": "object",
                 "example": {
-                    "file": "my-photo.png",
+                    "avatarURL": "my-photo.png",
                     "username": "Iryna Dev",
                     "email": "iryna@gmail.com",
                     "phone": "+380507771100",
@@ -1530,7 +1523,7 @@
                 "UpdateUserRequest": {
                     "type": "object",
                     "properties": {
-                        "file": {
+                        "avatarURL": {
                             "type": "png/jpg",
                             "example": "my-photo.png"
                         },
@@ -1556,7 +1549,7 @@
                         }
                     },
                     "required": [
-                        "file",
+                        "avatarURL",
                         "username",
                         "email",
                         "phone",
@@ -1567,7 +1560,7 @@
                 "UpdateUserResponse": {
                     "type": "object",
                     "example": {
-                        "file": "my-photo.png",
+                        "avatarURL": "my-photo.png",
                         "username": "Iryna Dev",
                         "email": "iryna@gmail.com",
                         "phone": "+380507771100",
