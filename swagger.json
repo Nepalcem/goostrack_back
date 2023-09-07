@@ -309,7 +309,7 @@
                                         "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
                                     }
                                 },
-                                "required": [] 
+                                "required": ["username", "avatarURL", "email", "phone", "skype", "birthday"] 
                             }
                         }
                     }
