@@ -8,7 +8,7 @@ const getAllTasks = async (req, res) => {
 
   console.log(year, month, day);
 
-  if (month > 12 || month <= 1) {
+  if (month > 12 || month < 1) {
     throw HttpError(400, "Wrong month. Min - 1, max - 12");
   }
 
